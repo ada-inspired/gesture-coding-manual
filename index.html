@@ -1,0 +1,567 @@
+<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Coding Manual</title>
+	<link href="stylesheet.css" rel="stylesheet" type="text/css" />
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+	</head>
+<body>
+<div id="page-wrapper">
+<div id="header">
+  <h1><i class="fa fa-book"></i> Coding Manual for Quantifiable Gestures</h1>
+  <h4 style="margin-top:-10px;">MIT Speech Communications Group</h4>
+
+  <div id="nav"> 
+    <ul>
+    	<li><a href="#intro">Intro</a></li>
+    	<li><a href="#phr_grp">PGGs</a></li> 
+    	<li><a href="#gstrokes">Strokes</a></li>
+    	<li><a href="#hshape">Hand Shape</a></li> 
+    	<li><a href="#location">Location</a></li>
+    	<li><a href="#trajshape">Trajectory Shape</a></li>
+    	<li><a href="#hshapelib">Reference</a></h5>
+    	<li><a href="#contact">Contact</a></li>
+  </ul>
+  </div> 
+</div>
+<div id="content">
+
+<h2 id="intro" style="margin-top:-10px;">Introduction</h2>
+<p>This manual documents our methods for labeling speech-accompanying gestures. In particular, we are interested in the apparent groupedness of gesture units as described by Adam Kendon. Our focus is on features that demarcate the boundaries of what Kendon 1980 describes as Parts. To begin, we introduce some of our terminology that deviates from Kendon's terminology, in order to better specify the character of the chunks we are interested in.</p>
+<ul>
+  <li><strong>Gesture phases</strong> : These are similar to Kendon's G-phrases. We make the distinction between phases and phrases because we are using the term phrases to refer more to groups of Kendon's G-Units. Gesture phases are the pieces or components that make up a SDG. </li>
+  <li><strong>Stroke-defined gesture [SDG]</strong> : Like Kendon's G-Units, but we specify that each G-Unit should have a single stroke.</li>
+  <li><strong>Preparation phase</strong> : A moving phase that starts from a full or incomplete rest position. It precedes the stroke phase.</li>
+  <li><strong>Pre-stroke hold</strong> : This phase only occurs after a preparation phase. It is non-moving, a pause in gesticulation, right before theh action, or stroke phase.</li>
+  <li><strong>Stroke phase</strong> : This is the main action of the gesticulation unit, our SDGs. Kendon describes it as a "distinct peaking of effort" based on Rudolf Laban's definition of effort in dance theory.</li>
+  <li><strong>Post-stroke hold</strong> : Following right after a stroke phase, this requires that the hand or hands are not relaxed. There is intent to relax or start another gesticulation</li>
+  <li><strong>Relaxing phase</strong> : Similar to Kendon's recovery, relaxing phase is a motion that goes to a relaxed state.</li>
+  <li><strong>Relaxed phase</strong> : A state where the hands are relaxed either partially or full. Hands tend to be non-moving or having imperceptible motion</li>
+  <li><strong>Non-counted gestures</strong> : These are non-speech accompanying motions where the hands many be engaging in self-touch, or various twitching or swaying combinations</li>
+  <li><strong>Perceptual Gesture Grouping [PGG]</strong> : Similar to Kendon 1980's description of Parts which group G-Units, PGGs are groups of SDGs and are named "perceptual" due to how we labeled them (using our perception, and without sound). They may be grouped into higher orders of PGGs, with level 1, PGG1, being a grouping of SDGs, and level 2, PGG2, being a grouping of PGG1s, and so forth.</li>
+</ul> 
+<p>The groupedness of PGGs can be similarly described from Kendon 1980's characterization of how G-Phrases are collected into G-Units or Parts: "G-Phrase 1 and G-Phrase 2 are grouped into Part 1 because they are very similar in form and in the space they make use of. G-Phrase 3 is regarded as belonging to a separate Part, in this case because it is enacted by a different limb. In other examples where the gesticulation is confined to one limb only, distinct Parts are recognized if the limb moves to an entirely new spatial area for enactment, or if it engages in a sharply distinctive movement pattern." (Kendon 1980)</p>
+
+<p>After labeling Perceptual Gesture Groupings [PGGs], we identify 3 major features, or kinematic dimensions, that when changed, aid in determining the boundaries of PGGs. These dimensions are as follows: hand shape, location with respect to the body, and trajectory shape. Hand shape and trajectory shape describe the "form" of the gesticulation, and location of the hands refer to Kendon 1980's "the space they make use of." We are not taking into account the handed-ness of the SDGs. In gesticulation, the two hands move in unison or with focus on a single dominant hand. In cases of asynchrony, the hands are still doing similar things and we have never seen in our corpus the left and right hands execute different active gesticulations that differ in these three dimensions.</p>
+
+<p>One cornerstone of our research is the quantification of these dimensions. In particular, calculating the amount of change that occurs from one hand shape to the next, from one location to the next, or from one trajectory shape to the next. The more perceptually different they are, the larger the numerical difference. Currently this manual does not go into the quantification methods and procedures. We aim to provide this upon publishing our findings and promise that these methodologies remain consistent with the end goal of quantification that is more than just counting occurrences. </p>
+
+<p>A second cornerstone is usability. It should be so easy people want to use it. To aid this, we have supplemented our methods with various tools and programming scripts that help align the annotations so everything lines up perfectly for quantification analysis. This methodology allows wiggle room for being a few video frames off in the annotations, which speeds up the labeling process without compromising on accuracy.</p>
+
+<p>Ideally, we would like to create a sort of ultimate gesture coding guide that brings together the elements of all gesture coding methodologies, to the point where a single gesticulation will be labeled the same way (with room for uncertainty) across all future gesture publications. ToBI did that for speech and prosody, it's about time for gesture research to have it's own agreed-upon methods.</p>
+
+<p>We use ELAN, a video annotation tool created by Max Planck Institute, to label our video samples. To download and learn more about how to use ELAN, check out <a href="http://tla.mpi.nl/tools/tla-tools/elan/" target="_blank">http://tla.mpi.nl/tools/tla-tools/elan/ <i class="fa fa-external-link"></i></a>. We will also provide tips on using ELAN for each feature labeled. PGGs are labeled perceptually, and a novice can do it with little direction. Each gesture phase goes into its own tier and is later assembled into a single tier via scripts. Kinematic dimensions are labeled in accordance with how detailed they can be. For example, hand shape may stay the same across multiple SDGs and PGGs, so you will only have to label that segment once. Location changes frequently and may change from the beginning of a stroke phase to its end. Unless otherwise specified, all labeling is done with the audio off. This allows labelers to focus on the content of the gesturing rather than the meaning.</p>
+
+<h4>Terms used:</h4>
+<ul style="list-style:none; margin-left:-1.5em;">
+  <li><i class="fa fa-user" style="margin-right:.5em;"></i> Labeler <i class="fa fa-long-arrow-right"></i> Someone who annotates, or labels the gesture features</li>
+  <li><i class="fa fa-pencil" style="margin-right:.5em;"></i> Labels, annotations <i class="fa fa-long-arrow-right"></i> Annotated tokens</li>
+  <li><i class="fa fa-pencil-square-o" style="margin-right:.5em;"></i> Annotation value <i class="fa fa-long-arrow-right"></i> What the annotated label actually says</li>
+  <li><i class="fa fa-arrows-h" style="margin-right:.5em;"></i> Annotation range <i class="fa fa-long-arrow-right"></i> The start and end of annotation</li>
+</ul>
+
+<h4>Tips for Annotation value:</h4>
+<ul>
+  <li>Use a question mark at the end when unsure.</li>
+  <li>Use forward slash "/" when unable to decide between two annotation value possibilities, with the more likely one first. This usage varies depending on the tier you're labeling.</li>
+  <li>We labeled only the main gesturing hand for each gesture stroke (it could be either the right or left hand). Usually the other hand is relaxed or executing the same gesture movement. We've never seen two hands execute completely different gestures in natural speaking and gesturing. When this happens, the gesture phase labeling (preparation, holds, etc.) are annotated for the dominant hand in the gesture.</li>
+</ul>
+
+<h4>Tips for Workflow:</h4>
+<ul>
+  <li>Change ELAN preferences for how you want to save annotations after entering in the annotation value. For example, the default for Macs is "Command + Return". Changing it to just "Return" helps improve your workflow.</li>
+  <li>Use horizontal zoom to zoom in when annotating detailed tiers like gesture strokes and location, and zoom out when annotating broad tiers like gesture phrase groupings, hand shape, and trajectory shape.</li>
+  <li>If you have one, use a device that can assign macros or keyboard shortcuts to keys
+   and buttons. A graphics tablet with programmable buttons has been a huge help to my workflow.</li>
+</ul>
+
+<hr/>
+<h2 id="phr_grp">Perceptual Gesture Groupings (PGGs)</h2>
+
+<p>Series of gestures could be called repeated hits, beats, or shakes, with increasing speed and decreasing time separation between each stroke. The delineations between them are not always clear cut. However, it is quite simple to tell where the groupings are. Taking out the difficult decision-making process, we were able to focus on labeling the perceptual gesture groupings, and do it quickly and efficiently. With this process in place, we noticed higher level groupings of groupings!</p>
+
+<p>We recommend starting off with perceptual phrase groupings. These are the easiest and fastest to label with very little training, and can provide fast insights to anyone new to gesture research.</p>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range:</h4>
+
+<p>Use your perception to label gesture strokes that appear to group together. The annotation range does not have to be 100% accurate so long as the entirety of the gesture strokes are contained within the time boundaries.</p>
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value:</h4>
+<p>Leave the annotation value blank. After you are done labeling, use ELAN's "Label and Number Annotations" tool under the Tier menu option. This will give you an ID to reference later. The number of gesture strokes that are contained within each PGG is an important measure to us, and is done in post-processing of the data.</p>
+
+<h4><i class="fa fa-thumb-tack"></i> Note:</h4>
+<p>If the gesture phrase groupings appear to fall into higher level groupings, feel free to add more tiers. We normally used PGG1 for the smallest groups and PGG2 for larger groups. PGG3 occurs rarely and would depend on the speaker and duration of the video (we labeled only 13 in a 30-minute sample).</p>
+
+<h4><i class="fa fa-star"></i> Recommendation:</h4>
+<p>Because perception of gesture grouping levels can vary from one annotator to the next, we used two annotators for each sample, with a consensus labeling round for our final annotations. Variations in labeling occur usually across levels of PGGs. Disagreements are only counted when the boundaries of the larger annotation cuts the boundaries of the smaller annotation. We look at the labeller that annotated longer PGGs (containing more strokes). Then checked whether the initial SDG of the PGG is also a initial SDG for the second labeller, and whether the last SDG of the PGG is also a last SDG of the second labeller. If this is not so, then it counts as a disagreement.</p>
+<p>Sometimes, what is considered an SDG may be labelled by one labeller as a small movement (too slight to be counted as an SDG, but the information is still captured) by another labeller. A PGG disagreement that includes this at the beginning or end is counted as a 50% disagreement rather than a full disagreement.</p>
+
+<hr/>
+
+<h2 id="gstrokes">Gesture Strokes and Phases</h2>
+
+<p>Gesture strokes are described as the peak of effort in a G-Phrase in Kendon 1980: "A phrase of gesticulation, or G-Phrase is distinguished for every phase in the excursionary movement in which the limb, or part of it, shows a distinct peaking of effort – 'effort' here used in the technical sense of Rudolf Laban (Dell 1970). Such an effort peak, or less technically, such a moment of accented movement, is termed the stroke of the G-Phrase." We interpret this to say that a gesture can include various phases, including preparation, stroke, hold, and recovery. The stroke phase is necessary for identification of the movement as a gesticulation unit. The other phases are not always used. The phases we labeled are: preparation phase, pre-stroke hold, stroke, post-stroke hold, relaxation, and relaxed. Thus we separated Kendon's proposed recovery phase into two parts: relaxation, where the hand is in motion, and relaxed, where the hand has stopped moving. This helped disambiguate some of the questions we had and provided more detail to our investigations.</p>
+
+<p>The phases can also be further defined by whether there is movement. For example the movement phases are: preparation, stroke, and relaxation. The non-movement phases are: pre-stroke hold, post-stroke hold, and relaxed.</p>
+
+<p>During the labeling process, each phase has its own tier. Once the phase labeling is completed, they are combined into a single tier, aptly named "all-phases." Using this tier, we are able to create the SDG tier. The all-phases tier is copied and phases around the stroke phase are consolidated into a single SDG label.</p>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range:</h4>
+<p>It can be difficult to label the range of gesture strokes. The gesture may be too slow, too fast, or too blurry. For the case of the video being too blurry - our video framerate is at 30 frames per second, and though that is much too low for automatic motion capture, it did allow us to use the frames where the hands clear up in the frames as boundary markers for the annotation label.</p>
+
+<h4>Progression of blurry to clear video frames: </h4>
+<div align="center">
+<img src="images/gest-fuzz.png" height="300" alt="blurry" title="blurry"> <img src="images/gest-fuzz2.png" height="300" alt="less blurry" title="less blurry"> <img src="images/gest-clear.png" height="300" alt="cleared up" title="all clear">
+
+</div>
+
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value:</h4>
+<p>The annotation value is created with "Label and Number Annotations" tool under the Tier menu option</p>
+
+<h4><i class="fa fa-thumb-tack"></i> Note: </h4>
+<p>If you are able to use motion tracking, use the calculated velocity and acceleration to help determine the start and end of the gesture strokes.</p>
+
+<hr/>
+
+<h2 id="hshape">Hand Shape</h2>
+
+<p>Our hand shapes are labeled independent of its orientation. This not only helps contain the number of handshape labels, but also helps make it easier to quantify.</p>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range: </h4>
+<p>Hand shape annotation range usually spans multiple gesture strokes based on the speakers we have seen.</p>
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value: </h4>
+<p>The value is usually a single capital letter abbreviated from the word that would best describe the hand shape. For example, we use &quot;F&quot; for &quot;fist,&quot; &quot;O&quot; for &quot;Open,&quot; and &quot;R&quot; for &quot;Relaxed.&quot; For uncertainties between two hand shapes, we used 5-point spectrum. We use both hand shape abbreviations with a number from 1-5 in between. For example: C4O. The first letter indicates that it is a cupped shape that the labeler initially saw, the number indicates how close this shape is to the second handshape, Open. C4O means it more like Open than Cup. It is equivalent to O2C. So, the order does not matter.</p>
+
+<p>Check the <a href="#hshapelib">library of hand shapes</a> at the end of this manual. It contains images of the different hand shapes as a reference.</p>
+
+<h4><i class="fa fa-thumb-tack"></i> Note: </h4>
+<p>We do not annotate hand shapes for regions where there are no strokes. Occasionally there may be a single gesture stroke that has a hand shape distinct from its neighbors. When both hands have different hand shapes, and the non-gesturing hand's hand shape changes, the annotation value would only refer to the gesturing hand. It is okay to specify RH for right-hand or LH for LH.</p>
+
+<h4><i class="fa fa-star"></i> Recommendation:</h4>
+<p>These hand shapes will vary a bit across different speakers. One speaker's default "Cup" handshape may be more rounded than another speaker's "Cup" handshape. As we're not doing a inter-speaker comparison, we use the default labels. If you are doing a inter-speaker comparison of handshapes, we recommend going through the video and take screenshots of the different handshapes used, and proceed from there.</p>
+
+<hr/>
+
+<h2 id="location">Location</h2>
+<p>Location refers to where the hands are in respect to the body.</p>
+<div align="center">
+<a href="images/location-new.png" target="_blank"><img src="images/location-new.png" height="450" alt="Location Diagram" title="Location Labeling Grid" /></a>
+</div>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range:</h4>
+<p>Every gesture stroke has a start location and an end location even if they are the same. Sets of small gestures may stay in the have the same location for the duration of the set. For large gestures that cover more space, also label the extremes in between the start and end locations.</p>
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value:</h4>
+<p>Use the mapping grid to for the values to use. Location is annotated as (right_hand_y),(right_hand_x);(left_hand_y),(left_hand_x). The y-values can have half values. For example, &quot;3.5&quot; would refer to the middle of the torso. Annotating the right hand first makes the labeling process faster.</p>
+
+<h4><i class="fa fa-thumb-tack"></i> Note:</h4> 
+<p>If you are able to obtain tracked data of where the hands are for your video sample, do the location labeling anyways. Location labeling may be automated by using the tracked data and a script to chunk the ranges based on the grid above. Be sure that your tracked data is adjusted for the speaker's torso movements.</p>
+<p>Slight movements that are visible may not be captured as having a location change because the trajectory motion does not travel far enough to qualify as a substantial change.</p>
+
+<hr/>
+<!-- <h2 id="pori">Palm Orientation</h2>
+
+<p>Palm Orientation defines the rotation of the hand, and which direction the inside of the palm is pointing. Think of it as an orthogonal vector pointing out from the center of the palm. It allows the hand shape dimension to remain separate from rotation in space. </p>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range:</h4>
+<p>Palm orientation can be constantly changing just like location. Annotate in the same way as for location.</p>
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value:</h4>
+<p>Use these directions below to label the palm orientation.</p>
+<div align="center">
+<table>
+  <tr>
+    <th>Abbr</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>U</td>
+    <td>Up</td>
+  </tr>
+  <tr>
+    <td>D</td>
+    <td>Down</td>
+  </tr>
+  <tr>
+    <td>L</td>
+    <td>Left</td>
+  </tr>
+  <tr>
+    <td>R</td>
+    <td>Right</td>
+  </tr>
+  <tr>
+    <td>T</td>
+    <td>Together, palms facing each other</td>
+  </tr>
+  <tr>
+    <td>S</td>
+    <td>Self, palm facing torso</td>
+  </tr>
+  <tr>
+    <td>F</td>
+    <td>Forward, palm facing away from speaker</td>
+  </tr>
+  <tr>
+    <td>H</td>
+    <td>Head, palm facing upwards and angled towards head</td>
+  </tr>
+</table>
+</div>
+<hr/> -->
+
+<h2 id="trajshape">Trajectory Shape</h2>
+
+<p>Trajectory shape describes the path shape of the gesture stroke. It can be moving in a straight path, curved path, or a looping path.</p>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range:</h4>
+<p>The range of these annotations tend to encompass multiple strokes, but also sometimes applies to only one gesture stroke.</p>
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value:</h4>
+<p>Use these labels:</p>
+<div align="center">
+<table>
+  <tr>
+    <th>Abbr</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>S</td>
+    <td>Straight</td>
+  </tr>
+  <tr>
+    <td>C</td>
+    <td>Curved</td>
+  </tr>
+  <tr>
+    <td>L</td>
+    <td>Looping</td>
+  </tr>
+  <tr>
+    <td>S-horiz</td>
+    <td>Straight, horizontal</td>
+  </tr>
+  <tr>
+    <td>S-diag</td>
+    <td>Straight, diagonal</td>
+  </tr>
+</table>
+</div>
+
+<h4><i class="fa fa-thumb-tack"></i> Note:</h4> 
+<p>Looping strokes and consecutive curved strokes can be hard to tell apart. While there is a pause between curved strokes, there is no pause between looping strokes. Meaning, for the strokes in the middle, they have no other phases than the stroke phase. The first stroke in the set may not have any post-stroke phases, and the last stroke in the set may not have any pre-stroke phases.</p>
+<!-- 
+<hr/>
+<h2 id="trajmvmnt">Trajectory Movement</h2>
+<p>Trajectory movement is similar to palm orientation. The directions Up, Down, Left, Right, Inward, Outward, Forward, and Self, are abbreviated to single letters to be able to describe the movement more compactly. This is annotated per gesture stroke, so it has the same annotation range as the gesture stroke.</p>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range:</h4>
+<p>This is annotated per gesture stroke.</p>
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value:</h4>
+<p>To describe curved movements, place the letters right next to each other. So, for example, a gesture movement of both hands that move up from the center, then outwards and down in one swift curved motion, would have the label &quot;UOD.&quot; To describe breaks in motion, use a comma. So a straight up motion, followed by a curved out and down motion would have the label &quot;U,OD.&quot;</p>
+<div align="center">
+<table>
+  <tr>
+    <th>Abbr</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>U</td>
+    <td>Up</td>
+  </tr>
+  <tr>
+    <td>D</td>
+    <td>Down</td>
+  </tr>
+  <tr>
+    <td>L</td>
+    <td>Left</td>
+  </tr>
+  <tr>
+    <td>R</td>
+    <td>Right</td>
+  </tr>
+  <tr>
+    <td>I</td>
+    <td>Inwards</td>
+  </tr>
+  <tr>
+    <td>O</td>
+    <td>Outwards</td>
+  </tr>
+  <tr>
+    <td>S</td>
+    <td>Self, towards body</td>
+  </tr>
+  <tr>
+    <td>F</td>
+    <td> Forward, away from body</td>
+  </tr>
+</table>
+</div> -->
+<!-- 
+<h4><i class="fa fa-thumb-tack"></i> Note:</h4>
+<p>This dimension is not necessary if automatic tracking of the hands is available. Labeling this dimension does help to disambiguate the raw data from automatic tracking. </p>
+
+<h4><i class="fa fa-star"></i> Recommendation</h4>
+<p>You can duplicate the gesture stroke tier, rename it trajectory-movement, and adjust the annotation value for trajectory movement.</p>
+
+<hr/>
+<h2 id="trajsize">Trajectory Relative Size</h2>
+
+<p>This dimension compares successive gesture strokes that have a similar movement. </p>
+
+<h4><i class="fa fa-arrows-h"></i> Annotation range:</h4>
+<p>This is annotated per gesture stroke comparing it to the previous stroke, on a separate tier. Gesture strokes that do not have a similar movement to the previous stroke are not labeled for this tier.</p>
+
+<h4><i class="fa fa-pencil-square-o"></i> Annotation value:</h4>
+<div align="center">
+<table>
+  <tr>
+    <th>Abbr</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>--</td>
+    <td>much smaller</td>
+  </tr>
+  <tr>
+    <td>-</td>
+    <td>smaller</td>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>same size</td>
+  </tr>
+  <tr>
+    <td>+</td>
+    <td>larger</td>
+  </tr>
+  <tr>
+    <td>++</td>
+    <td>much larger</td>
+  </tr>
+</table>
+</div>
+
+<hr/> -->
+<!-- <h2 id="hshapeq">Hand Shape: Quantified form</h2>
+
+<p>The detailed form allows us to make quantifications based on perceptual change. Touching, whether a hand is touching itself or the other hand, is separated out from the form itself. We created a hand map identifying every part of the hand. A few things to observe:</p>
+<ul> 
+	<li>use lowercase letters for the palm-side of the hand</li>
+	<li>use capital letters for the back-side of the hand</li>
+	<li>use &quot;/&quot; for left edge, and &quot;\&quot; for right edge </li>
+	<li>letters refer to regions and points</li>
+	<li>numbers refer to fingers</li>
+</ul>
+
+<div align="center">
+<img src="images/hand_map2.png" height="350" alt="Hand Map" title="Tips and knuckles are considered points">
+</div>
+	
+
+<p>The dimensions for hand shape are as follows: Knuckle bent and intentionality, Finger curvature, Thumb orientation, Horizontal Finger clumping, and Touching.</p>
+
+<h3 id="hsq-k">Knuckle bent and intentionality</h3>
+
+<p>Here, we refer to the hand map, taking the letters assigned to the knuckle. For clarity, we will use capital letters in the annotation, unless the knuckles are bent backwards, which some people can do from the base of their palms. There are varying degrees of knuckles bent. Think of a tight-gripped fist shape and a threatening &quot;claw&quot; shape. Both of these have high intentionality. To differentiate both the intentionality and the tightness of angle between each knuckle section, we introduce the option of using prime notation, or apostrophes. Options are: ( ) - no apostrophe and very little intention, (‘) - single apostrophe and more intention, or (‘’) - two single apostrophes and max intention and minimal angle; parentheses used here are not used in annotation. The annotation value here would be the letter of the knuckle that is bent and optional apostrophes. For example, G'' would be high intention bend at knuckle G. If there are no bent knuckles, used X as the annotation value.</p>
+
+<h3 id="hsq-f">Finger curvature</h3>
+
+<p>Finger curvature is defined as how much the finger is curved from the bent knuckle. The scale is 0 to 7, with 0 defined as curving backwards on the knuckle, 1 as straight, and 7 as the most curled relaxed curve without appearing to bend the knuckle. Example including Knuckle bent and Finger curvature: [E'2] Finger is bent only at knuckle K and curves gently from that point. </p>
+
+
+<h3 id="hsq-to">Thumb orientation</h3>
+<div align="center">
+<img src="images/handshape-thumb_orientation.png" height="300" alt="XYZ Thumb Orientation" title="Using right-hand rule">
+</div>
+
+<p>The thumb has more degrees of freedom than the other fingers. We added a cartesian coordinate dimension to specify the orientation of the thumb in reference to the palm. The x-axis, relative to the hand, would be the thumb position in a &quot;thumbs up&quot; gesture. The y-axis is pointing out in the direction of the other fingers in a flat hand shape, and the z-axis is when the points out orthogonally from the palm. Negative x, or &quot;–x&quot; would be when the thumb is curled on the palm, pointing in the direction opposite of the &quot;thumbs up&quot; gesture. This annotation comes after the knuckle bent and finger curvature items of the thumb, and is preceded by a colon &quot;:&quot;.</p>
+
+
+<h3 id="hsq-h">Horizontal finger clumping</h3>
+
+<p>Originally this was horizontal finger compression, a binary dimension noting whether or not the 4 forefingers not including the thumb) were touching side-by-side. Think of the shape as if you were to reach out your hand for a handshake. In the current iteration, we will observe which adjacent fingers are touching lengthwise along their sides. To annotate this, each clump of fingers goes into a set of brackets which will contain knuckle-bent and finger curvature annotations. Clumps can contain 1 to 5 fingers within the brackets. When there is more than one finger in a clump, use a comma to separate the individual finger annotations. For example, a thumbs up hand shape would look like this: [X1][G'7,G'7,G'7,G'7], and an open hand shape would be [X1][X1][X1][X1][X1].</p>
+
+<h3 id="hsq-t">Touching</h3>
+
+<p>This dimension makes it easier to define both one-handed and two-handed hand shapes. Regions are as defined on the hand map. The touching annotation will be in parentheses, placed before the brackets. &quot;Equal touchingness&quot; will utilize an asterisk &quot;*&quot; between the two noted regions, and unequal touchingness, where there is an obvious toucher and a touchee, will utilize an at symbol &quot;@&quot; between them, with the toucher preceding it, and the touchee following it. For example, in a pointing gesture where the thumb touches the fingernail of the middle finger, (b1@B3).</p>
+<p>Only capture the touching dimensions that is not already captured in the knuckle bent and finger curvature dimensions. Try to keep it to as few items as possible.</p>
+
+
+<h3 id="hsq-q">Quantifying differences</h3>
+
+<p>Now that we have our hand shapes defined, it is easier to assign a number to how similar or different they are from one to the next. Basic outline of algorithm for touch:  </p>
+
+<ol>
+<li>Quantifying changed touchee 
+	<ol>
+		<li>Difference between uppercase and lowercase = 2 </li>
+		<li>Difference between adjacent letters = 0.5 if one is knuckle/tip, and the other is segment) </li>
+		<li>Difference between two segments, or two knuckles = 1 </li>
+		<li>Difference between same part of adjacent fingers = 1 for thumb toucher on same hand, = 1.5 for thumb toucher on different hand </li>
+		<li>Difference between two touchee regions same hand = 1 </li>
+		<li>Difference between same finger segment to left/right edge, &plusmn;0.25 </li>
+	</ol>
+</li>
+<li>Quantifying changed toucher 
+	<ol>
+		<li>If new toucher is same location on other hand, difference = 1 </li>
+		<li>If new toucher is different location on same hand, use touchee conventions.</li>
+		<li>If new toucher is different location, different hand, see touchee quantifications above.</li>
+	</ol>
+</li>
+</ol> -->
+
+<hr/>
+
+<h2 id="hshapelib">Hand Shape Library</h2>
+<p>Handshapes are quantified by 3 measures: curl, finger spread, and intention. Curl describes how much the fingers are curled in, with 5 being most curled in a fist shape, and 1 being least curled in the Open shape. Spread refers to the distance between fingers, or how far they are from each other. Open has the most spread at 5, and Knife has no spread at 1. Intention describes a qualitative intent behind the hand shape. Q, or "Okay" handshape has intent at 5, and Relaxed has an intent at 1. Each handshape has a unique set of numbers for Curl, Spread, and Intent. This allows them to be quantified for later analysis.</p>
+<div>
+<table>
+<tr>
+	<th>Name</th>
+	<th style="width:40px;">Abbr</th> 
+  <!-- <th style="width:100px;">CSI</th> -->
+	<!-- <th style="width:250px;">ID</th> -->
+	<th style="width:250px">Description</th>
+	<th style="width: 20px">Image</th>
+</tr>
+<tr>
+  	<td>Deictic</td>
+  	<td>D</td>
+    <!-- <td>4-2-5</td> -->
+ <!--  	<td>(b1@B3)[X2:z][X'1][X4,X4,X4]</td> -->
+  	<td>index finger pointing</td>
+  	<td><img src="images/hshape/deictic.png"></td>
+</tr>
+<tr>
+
+ 	<td>Gun</td>
+	<td>G</td>
+	<!-- <td>(A{3-5}@j)[X1:x][X'1][G6,G6,G6]<br/>or [X1:x][X'1][G6,G6,G6]</td> -->
+	<td>index finger and thumb out</td>
+	<td><img src="images/hshape/gun.png"></td>
+</tr>
+<tr>
+	<td>Fist</td>
+	<td>F</td>
+	<!-- <td>(b1@D{2,3})[E5:- x][G6,G6,G6,G6]</td> -->
+	<td>all fingers curled in</td>
+	<td><img src="images/hshape/fist.png"></td>
+</tr>
+<tr>
+	<td>Relaxed</td>
+  	<td>R</td>
+  	<!-- <td>[X3:y][X3,X3,X3,X3]</td> -->
+  	<td>all fingers loose with no intention</td>
+  	<td><img src="images/hshape/relaxed.png"></td>
+</tr>
+<tr>
+	<td>Open</td>
+  	<td>O</td>
+  	<!-- <td>[X1:x][X1][X1][X1][X1]</td> -->
+  	<td>all fingers spread outward</td>
+  	<td><img src="images/hshape/open.png"></td>
+</tr>
+<tr>
+	<td>Cup</td>
+  	<td>C</td>
+  	<!-- <td>[X''3:z][X''3][X''3][X''3][X''3]</td> -->
+  	<td>all fingers curled midway, claw-like, high intention</td>
+  	<td><img src="images/hshape/cup.png"></td>
+</tr>
+<tr>
+	<td>Knife</td>
+  	<td>K</td>
+  	<!-- <td>[X'1:y][X1,X1,X1,X1]<br/>VARIANT: [X1:y,X1,X1,X1,X1]</td> -->
+  	<td>fingers straight and flat</td>
+  	<td><img src="images/hshape/knife.png"></td>
+</tr>
+<tr>
+	<td>Angled</td>
+  	<td>A</td>
+  	<!-- <td>RH(b1@f2\)[E1:y][G1,G1,G1,G1]</td> -->
+  	<td>like, knife, bent</td>
+  	<td><img src="images/hshape/angled.png"></td>
+</tr>
+<tr>
+	<td>Pursed</td>
+  	<td>P</td>
+  	<!-- <td>(b1*b{2-5})[E1][G2,G2,G2,G2]</td> -->
+  	<td>fingers pointed together</td>
+  	<td><img src="images/hshape/pursed.png"></td>
+</tr>
+<tr>
+	<td>Hole</td>
+  	<td>H</td>
+  	<!-- <td>(a1*a2)[X4:z][X4,X4,X4,X4]</td> -->
+  	<td>fingers curved in, forming cylinder shape</td>
+  	<td><img src="images/hshape/hole.png"></td>
+</tr>
+<tr>
+	<td>Okay</td>
+  	<td>Q</td>
+  	<!-- <td>(a1*a2)[X4:z][X4][X2][X2][X2]</td> -->
+  	<td>iconic OK shape</td>
+  	<td><img src="images/hshape/ok.png"></td>
+</tr>
+<tr>
+	<td>Two</td>
+  	<td>T</td>
+  	<!-- <td>(a1@D{4,5})[E5:- x][X'1][X'1][G6,G6]</td> -->
+  	<td>index and middle finger pointed out</td>
+  	<td><img src="images/hshape/two.png"></td>
+</tr>
+<tr>
+	<td>Loose</td>
+  	<td>L</td>
+  	<!-- <td>[X3:-x][X3,X3,X3,X3]</td> -->
+  	<td>relaxed shape with fingers curled in</td>
+  	<td><img src="images/hshape/loose.png"></td>
+</tr>
+<tr>
+	<td>Steepled</td>
+  	<td>S</td>
+  	<!-- <td>(RH_b*LH_b)[X1:y][X1,X1,X1,X1]</td> -->
+  	<td>two open hands, fingertips touching</td>
+  	<td><img src="images/hshape/steepled.png"></td>
+</tr>
+<tr>
+	<td>Wall</td>
+  	<td>W</td>
+  	<!-- <td>(RH_a3*LH_a3)[X1:y][X1,X1,X1,X1]</td> -->
+  	<td>two open hand forming a wall or barrier</td>
+  	<td><img src="images/hshape/wall.png"></td>
+</tr>
+<tr>
+	<td>Jailed</td>
+  	<td>J</td>
+  	<!-- <td>(RH_a{3,4}*LH_a{3,4})[X1:x][X1][X1][X1][X1]</td> -->
+  	<td>two hands forming a barrier with fingers not pressed against each other</td>
+  	<td><img src="images/hshape/jail.png"></td>
+</tr>
+<tr>
+	<td>Intertwined</td>
+  	<td>I</td>
+  	<!-- <td>(RH_b{2-5}@LH_J)(LH_b{2-5}@RH_J)[X1:y][X2][X2][X2][X2]</td> -->
+  	<td>two cup hands clasped, with fingers intertwined</td>
+  	<td><img src="images/hshape/intertwined.png"></td>
+</tr>
+</table>
+</div>
+
+<hr/>
+<h4 id="contact">Contact</h4>
+<p>Ada Ren at ada.inspired(at)gmail(dot)com</p>
+
+</div>
+</div>
+
+</body>
+</html>
